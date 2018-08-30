@@ -453,3 +453,61 @@ console.log(john);
 // john.calcAge();
 
 */
+
+//---------------------------------------------------------------------------------------
+
+// Loops and Iteration
+
+// for loop
+// a) establish counter, b) test condition, c) increment
+
+// simple loop that counts to 10
+for (var i = 1; i <= 10; i++) {
+    console.log(i);    
+}
+
+// simple loop that counts to 10, even only
+for (var i = 2; i <= 10; i+=2) {
+    console.log(i);    
+}
+
+// loop through array
+var darren = ['Darren','Smith','Nerd',1974];
+for (i in darren) {
+    console.log(darren[i]);
+}
+
+// loop through array, 2nd method 
+// (not as concise as above but in the lecture notes)
+// recall, like python lists, arrays start at index 0 
+for (var i = 0; i < darren.length; i++) {
+    console.log(darren[i]);
+}
+
+// while loop
+while (i < darren.length) {
+    console.log(darren[i]);
+    i++;
+}
+
+// continue and break statements
+// what if we wanted only strings from array?
+for (var i = 0; i < darren.length; i++) {
+    if (typeof darren[i] !== 'string') continue;
+        console.log(darren[i]);
+}
+
+// what if we want to quit as soon as non-string value is encountered?
+for (var i = 0; i < darren.length; i++) {
+    if (typeof darren[i] !== 'string') break;
+        console.log(darren[i]);
+}
+
+// loop backwards
+// start at number that equals lenght of array
+// test for i being greater or equal to index 0
+// decrement i by 1
+
+for (var i = darren.length; i >= 0; i--) {
+    console.log(darren[i]);
+}

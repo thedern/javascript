@@ -18,7 +18,7 @@ console.log(job);
 
 //-------------------------------------------------
 /*
-// Lecture:  variable mutatioon and type coersion
+// Lecture:  variable mutation and type coersion
 
 var firstName = 'darren';
 var age = 44;
@@ -35,7 +35,7 @@ isMarried = 'false';
 console.log(firstName + ' is a ' + age + ' year old ' + job + '. Is he married? ' + isMarried )
 
 //variable mutation, was an int, now a string
-age = 'fourty four';
+age = 'forty four';
 
 //instead of console log, create popup...
 //Note, visual studio code will error stating 'alert not defined' but this does work in browser
@@ -92,7 +92,7 @@ var x, y;
 x = y = (3 + 5) * 4 - 7; //PDMAS applied like in all math
 console.log(x, y); 
 
-//handy incrementer in javascript
+//handy increment in javascript
 x = 2;
 x++; // same as typing x += 1
 console.log(x);
@@ -127,15 +127,15 @@ if (isMarried){
 // boolean logic
 
 /*
-var firstame = "john";
+var firstName = "john";
 var age = 16;
 
 if (age < 13) {
-    console.log(firstame + ' is a boy');
+    console.log(firstName + ' is a boy');
 } else if (age >= 13 && age < 20) {
-    console.log(firstame + ' is a teenager'); // boolean 'and' operation
+    console.log(firstName + ' is a teenager'); // boolean 'and' operation
 } else {
-    console.log(firstname + ' is a man');
+    console.log(firstName + ' is a man');
 }
 
 */
@@ -151,7 +151,7 @@ var age = 45;
 age >= 18 ? console.log(firstName + " can drink a beer")
 : console.log(firstName + " can drink a water");
 
-// short hand for popluating a variable based on a condition
+// short hand for populating a variable based on a condition
 var drink = age >= 18 ? 'beer' : 'water';
 console.log(firstName + " can drink " + drink);
 
@@ -182,11 +182,11 @@ switch (job) {
 // Truthy and Falsy statements; Equality
 
 //falsy values are undefined, null, 0, ' ', NaN
-//tuthy values are all values NOT falsy
+//truthy values are all values NOT falsy
 /*
 var height;
 
-height = 23; //tuthy when 23 assigned, comment out and it becomes fasly
+height = 23; //truthy when 23 assigned, comment out and it becomes falsy
 
 // height = 0; //is undefined by default unless dealt with in the code
 
@@ -194,14 +194,14 @@ height = 23; //tuthy when 23 assigned, comment out and it becomes fasly
 if (height || height === 0) {
     console.log('Variable has been defined');
 } else {
-    cpnsole.log('Variable has not been defined');
+    console.log('Variable has not been defined');
 }
 
 // '===' vs '=='
 if (height == '23') {
-    console.log('The == operator does type corercion!!!');
+    console.log('The == operator does type coercion!!!');
     console.log('This means 23 == "23"');
-    // ===  does strick comparison and is best practice.  23 and 
+    // ===  does strict comparison and is best practice.  23 and 
     // '23' are NOT equal when using ===
 } 
 
@@ -211,7 +211,7 @@ if (height == '23') {
 //Function Declaration
 //DRY = DO NOT REPEAT YOURSELF ---> FUNCTIONS
 /*
-//basic functon
+//basic function
 function calculateAge(birthYear) {
     //returns age value to caller
     return 2018 - birthYear;
@@ -246,19 +246,19 @@ yearsUntilRetire(2005, "Griff");
 
 // Another way to write functions.
 // Anything that produces a result is an "Expression"
-// Function Statements produce an immediate resulte; whereas, Function Declarations do NOT.
+// Function Statements produce an immediate result; whereas, Function Declarations do NOT.
 /*
-var whatDoYouDo = function(job, firstname) {
+var whatDoYouDo = function(job, firstName) {
     switch(job) {
         //note: "return, negates the need to 'break' the statement"
         case "teacher":
-            return firstname + ' teaches kids to code.';
+            return firstName + ' teaches kids to code.';
         case "driver":
-            return firstname + ' drives an Uber.';
+            return firstName + ' drives an Uber.';
         case "karate master":
-            return firstname + ' kicks butts.';
+            return firstName + ' kicks butts.';
         default:
-            return firstname + ' is unemployed.';
+            return firstName + ' is unemployed.';
     }
 }
 
@@ -302,8 +302,8 @@ console.log(names[1]);
 */
 
 /*
-unlike lists, you can access new indexes of an array, skipping indexes. "emtpy items" are
-placed at the index values skipped.  Thise indexes are created but with "undefined" values
+unlike lists, you can access new indexes of an array, skipping indexes. "empty items" are
+placed at the index values skipped.  This indexes are created but with "undefined" values
 if you were to try to access them directly, see below.
 */
 
@@ -341,22 +341,22 @@ console.log(darren);
 // get index and print
 console.log(darren.indexOf(1974));
 
-// example using terninary operator
+// example using terinary operator
 var isBorn = darren.indexOf(1975) === -1 ? 'not there' : 'Darren was born in 1974';
 console.log(isBorn);
 */
 
 //-----------------------------------------------------------------------------------
 
-// Ojects and Properties
+// Objects and Properties
 // Similar to a python dictionary, key/value pairs.  Order does not matter due to 
 // key/value structure.
 
 // 'john' is the object and the key/value pairs are the properties
 /*
 var john = {
-    firstname: 'John',
-    lastname: 'Smith',
+    firstName: 'John',
+    lastName: 'Smith',
     birthYear: 1990,
     family : ['dave','bill','susan'],
     job: 'teacher',
@@ -369,7 +369,7 @@ console.log(john);
 console.log(john.birthYear);
 
 // access properties via key
-console.log(john['lastname']);
+console.log(john['lastName']);
 
 // access via reference
 var x = 'birthYear';
@@ -384,7 +384,7 @@ console.log(john);
 var jane = new Object();
 jane.name = 'Jame';
 jane.birthYear = 1998;
-jane.lastname = 'jones';
+jane.lastName = 'jones';
 
 console.log(jane);
 
@@ -393,12 +393,12 @@ console.log(jane);
 //------------------------------------------------------------------------------------------
 
 // Methods
-// Attach functions to ojects.
+// Attach functions to objects.
 
 /*
 var john = {
-    firstname: 'John',
-    lastname: 'Smith',
+    firstName: 'John',
+    lastName: 'Smith',
     family : ['dave','bill','susan'],
     job: 'teacher',
     married: false,
@@ -411,18 +411,18 @@ var john = {
 // get age by calling john's calcAge method and passing in birth year
 console.log(john.calcAge(1990));
 
-// what if birthyear was already in the object so no need to pass it in?
+// what if birth year was already in the object so no need to pass it in?
 
 var john = {
-    firstname: 'John',
-    lastname: 'Smith',
-    birthyear: 1990,
+    firstName: 'John',
+    lastName: 'Smith',
+    birthYear: 1990,
     family : ['dave','bill','susan'],
     job: 'teacher',
     married: false,
     // function takes no arguments and refers to itself "this."
     calcAge: function() {
-        return 2018 - this.birthyear;
+        return 2018 - this.birthYear;
     }
 };
 
@@ -431,17 +431,17 @@ console.log(john.calcAge());
 // what if we want to calculate the age and store it the object?
 
 var john = {
-    firstname: 'John',
-    lastname: 'Smith',
-    birthyear: 1990,
+    firstName: 'John',
+    lastName: 'Smith',
+    birthYear: 1990,
     family : ['dave','bill','susan'],
     job: 'teacher',
     married: false,
     // function takes no arguments and refers to itself "this."
     calcAge: function() {
-        return 2018 - this.birthyear;
+        return 2018 - this.birthYear;
         // 2. or set it directly w/o returning
-        // this.age = 2018 - this.birthyear;
+        // this.age = 2018 - this.birthYear;
     }
 };
 
@@ -461,6 +461,7 @@ console.log(john);
 // for loop
 // a) establish counter, b) test condition, c) increment
 
+/*
 // simple loop that counts to 10
 for (var i = 1; i <= 10; i++) {
     console.log(i);    
@@ -504,10 +505,158 @@ for (var i = 0; i < darren.length; i++) {
 }
 
 // loop backwards
-// start at number that equals lenght of array
+// start at number that equals length of array
 // test for i being greater or equal to index 0
 // decrement i by 1
 
 for (var i = darren.length; i >= 0; i--) {
     console.log(darren[i]);
 }
+
+*/
+
+//-------------------------------------------------------------------
+
+// Object Creation Chain
+// Hoisting - javascript loads all function statements and variables as the program starts
+// the code below where function call is made before declaration is legal in JS
+
+/*
+
+// hoisted call - function called then defined
+nameHello("Darren");
+
+function nameHello(name) {
+    console.log(name);
+}
+
+// traditional call - function defined then called
+function callAge(age) {
+    console.log(age);
+}
+
+callAge(44);
+
+// Hosting does not work on function expressions.  This will error
+retirement(1974);
+
+var retirement = function(birYear) {
+    console.log(70 - (2018 - birYear));
+}
+
+// for function expressions, you have to employ traditional function/call order
+var retirement = function(birYear) {
+    console.log(70 - (2018 - birYear));
+}
+
+
+retirement(1974);
+
+// Hoisted variables - javascript loads all variables as the program starts and assigns them as 
+// 'undefined' until they are formally declared
+
+// will show in browser log as undefined as opposed to error
+console.log(LastName);
+var lastName = "Smith";
+
+//If called after the assignment, will log "Smith"
+console.log(lastName);
+
+*/
+
+//------------------------------------------------------------------------------------------------
+
+// Scope Chain Creation
+
+// In JS scopes are global or function scoped, thats it...
+// Global scope is accessible to all including functions
+// Function scopes are lexical:
+// a) Child Function has access to its own variables, it's parent function variables, as well as global variables
+// b) Parent Function has access to its own variables and global variables, but not child function variables
+// c) Code outside of functions has access to global variables but not any function variables
+// Note:  The only way that code outside functions has access to variables inside functions is for the 
+// variables to be 'returned' from the function
+
+// scope chain example
+//global
+/*
+var a = 'hello';
+first();
+
+//parent function
+function first() {
+    var b = 'hi';
+    second();
+
+    //child function
+    function second() {
+        var c = "hey";
+        console.log(a + b + c);
+    }
+}
+
+// example of execution stack versus chain.  This should error as it would have no access to variables 'b' and 'c'
+// this function only has access to 'a', (scoped globally) and 'd', its own variable.
+// it is not in the first ==> second function chain.
+
+function third() {
+    var d = 'John';
+    console.log(a + b + c + d);
+}
+
+third()
+
+*/
+
+//--------------------------------------------------------------------------------------------------------------------------
+
+// Key Word 'this'
+// Last step in creation chain
+// In regular function call, 'this' refers to the global object
+// In a method call (such as within an object), this refers to the calling object
+// Note: 'this' does NOT exist until an execution context is called
+
+// show the 'window object' (the default object) in console
+// console.log(this);
+
+/*
+// 'this' attached to the default object when called from a function
+calculateAge(1987);
+
+function calculateAge(year) {
+    console.log(2018 - year);
+    console.log(this);
+}
+*/
+
+// 'this' attached to a method call will display the calling object
+
+var darren = {
+    name : 'darren',
+    lName : 'smith',
+    bYear : 1974,
+    calculateAge : function () {
+        console.log(this);
+        console.log(2018 - this.bYear);
+
+        //function innerFunction() {
+            // this will display the window (default object)
+        //   console.log(this);
+        //}
+        // innerFunction();
+    }
+}
+
+darren.calculateAge();
+
+var mike = {
+    mName : "Mike",
+    bYear : 1984,
+};
+
+// "method borrowing", can use darren.calculateAge to calculate mike's age
+// reduces rewrite of code by using the function contained within another object
+mike.calculateAge = darren.calculateAge;
+
+// calculate mike's age
+mike.calculateAge();

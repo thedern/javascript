@@ -1,16 +1,16 @@
-// coding challenge 5 - Advanced Tip Calculator using Objects, Loops, and Control Strucures
+// coding challenge 5 - Advanced Tip Calculator using Objects, Loops, and Control Structures
 // using 'this.<object for self-reference'
 
 // Create object containing functions to calculate tip and calculate average tip
 var money = {
-    //array to be populated by entering in pre-tip resturaunt bills
+    //array to be populated by entering in pre-tip bills
     bills : [],
     //array to be populated by tipCalc function
     tips  : [],
     //array to be populated by tipCalc function
     totalB : [],
     tipCalc : function() {
-        var tipAmt;
+        var tipAmt, i;
         for (i in this.bills) {
             if (this.bills[i] < 50) {
                 //get tip rounded to two decimal places
@@ -18,7 +18,7 @@ var money = {
                 //append the sum of tip and bills[i] to totalB
                 this.totalB.push(this.bills[i] + tipAmt);
                 //append the tipAmt to tips
-                this.tips.push(tipAmt)
+                this.tips.push(tipAmt);
 
             } else if (this.bills[i] >= 50 && this.bills[i] < 200) {
                 //get tip rounded to two decimal places
@@ -26,7 +26,7 @@ var money = {
                 //append the sum of tip and bills[i] to totalB
                 this.totalB.push(this.bills[i] + tipAmt);
                 //append the tipAmt to tips
-                this.tips.push(tipAmt)
+                this.tips.push(tipAmt);
 
             } else {
                 //get tip rounded to two decimal places
@@ -34,13 +34,13 @@ var money = {
                 //append the sum of tip and bills[i] to totalB
                 this.totalB.push(this.bills[i] + tipAmt);
                 //append the tipAmt to tips
-                this.tips.push(tipAmt)
+                this.tips.push(tipAmt);
             }
         }
     },
     //calculate average tip
     calcAve : function() {
-        var sum = 0;
+        var sum = 0, i;
         var tipAverage = 0;
         for (i in this.tips) {
             sum += this.tips[i];
@@ -53,14 +53,14 @@ var money = {
    
 };
 
-// resturaunt bills, pre-tip
-preTip = [174, 48, 268, 180, 42];
+// bills, pre-tip
+var preTip = [174, 48, 268, 180, 42];
 
 // populate the bills array with data
 money.bills = preTip;
 
-// caculate tips based on preTip $ amounts
+// calculate tips based on preTip $ amounts
 money.tipCalc();
-average = money.calcAve();
+var average = money.calcAve();
 console.log(average);
 console.log(money);

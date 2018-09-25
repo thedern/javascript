@@ -1,5 +1,5 @@
 // coding challenge 5 - Advanced Tip Calculator using Objects, Loops, and Control Structures
-// using 'this.<object for self-reference'
+// using 'this.object for self-reference'
 
 // Create object containing functions to calculate tip and calculate average tip
 var money = {

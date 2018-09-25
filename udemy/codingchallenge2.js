@@ -1,3 +1,6 @@
+
+
+
 var j1, j2, j3, m1, m2, m3, jAve, mAve;
 
 j1 = 89;

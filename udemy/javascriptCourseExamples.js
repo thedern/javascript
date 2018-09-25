@@ -115,7 +115,7 @@ if (civilStatus === 'married') {
 
 //boolean
 var isMarried = false; // true is true, like with python
-if (isMarried){
+if (isMarried) {
     console.log(firstName + " is married");
 } else {
     console.log(firstName + " is not married");
@@ -147,21 +147,23 @@ var firstName = "john";
 var age = 45;
 
 //terniary operator has 3 parts and is shorthand for if/else
-//parts are condition, if'?', else ':'
+//parts are test condition, if --> '?', else --> ':'
+
 age >= 18 ? console.log(firstName + " can drink a beer")
 : console.log(firstName + " can drink a water");
 
 // short hand for populating a variable based on a condition
 var drink = age >= 18 ? 'beer' : 'water';
+
 console.log(firstName + " can drink " + drink);
 
-//use ternary operator for if/else for non-complex statements
+//USAGE:  use ternary operator for if/else for non-complex statements
 
 //switch statement
 
 var job = 'karate master';
 switch (job) {
-    //case 1 response to both teacher and instructor
+    //case 1 response is to both teacher and instructor
     case 'teacher':
     case 'instructor':
         console.log(firstName + ' teaches javascript');
@@ -201,7 +203,7 @@ if (height || height === 0) {
 if (height == '23') {
     console.log('The == operator does type coercion!!!');
     console.log('This means 23 == "23"');
-    // ===  does strict comparison and is best practice.  23 and 
+    // ===  does strict comparison and is best practice. Example: 23 and 
     // '23' are NOT equal when using ===
 } 
 
@@ -209,7 +211,7 @@ if (height == '23') {
 //------------------------------------------------------------------
 
 //Function Declaration
-//DRY = DO NOT REPEAT YOURSELF ---> FUNCTIONS
+//D.R.Y. = DO NOT REPEAT YOURSELF ---> FUNCTIONS
 /*
 //basic function
 function calculateAge(birthYear) {
@@ -244,7 +246,7 @@ yearsUntilRetire(2005, "Griff");
 //------------------------------------------------------------------------------
 // Function Statements and Expressions
 
-// Another way to write functions.
+// Function Statements are another way to write functions.
 // Anything that produces a result is an "Expression"
 // Function Statements produce an immediate result; whereas, Function Declarations do NOT.
 /*
@@ -270,19 +272,20 @@ console.log(whatDoYouDo('karate master','darren'));
 // Arrays in JS look and act much like lists in python.
 // Arrays are ordered structures like lists in python.
 
-/*
+
 //can create array two ways.  First way looks like python list
-var names = ['darren','dan','Jane'];
-//second way use Array function and pass in data
-var years = new Array(1990, 1969, 1948);
+//var names = ['darren','dan','Jane'];
+
+//second way to create is to use Array function and pass in data
+//var years = new Array(1990, 1969, 1948);
 
 //like python list, JS array indexes start at ordinal number 0
 //access first element in 'names' array. Again, like python lists
-console.log(names[0]);
+//console.log(names[0]);
 
 //print number of elements in array
-console.log(names.length);
-*/
+//console.log(names.length);
+
 
 /* 
 iterate over array and print entries.  This is simpler than python where
@@ -291,19 +294,29 @@ range' error.  No such issue in JS as it handles index 0 without needing a
 special function such as 'range' to establish the starting point of 0
 artificially.  Nice!!!
 */
+
+
+// this works in javascript but is not the 'best' way to iterate.
+// this is more python
 /*
 for (i in names) {
     console.log(names[i]);
-}
+*/
+
+// this is more javascript way
+//var i;
+//for (i = 0; i < names.length; i++) {
+//    console.log(names[i]);
+//}
 
 // like lists, arrays are mutable
-names[1] = 'Sasquatch';
-console.log(names[1]);
-*/
+//names[1] = 'Sasquatch';
+//console.log(names[1]);
+
 
 /*
 unlike lists, you can access new indexes of an array, skipping indexes. "empty items" are
-placed at the index values skipped.  This indexes are created but with "undefined" values
+placed at the index values skipped.  These indexes are created but with "undefined" values
 if you were to try to access them directly, see below.
 */
 
@@ -326,24 +339,23 @@ console.log(darren);
 darren.push('blue');
 console.log(darren);
 
-// shift adds to beginning of array
+// unshift adds to beginning of array
 darren.unshift('Mr');
 console.log(darren);
 
-// remove last element
+// pop removes last element
 darren.pop();
 console.log(darren);
 
-// remove first element
+// shift removes first element
 darren.shift()
 console.log(darren);
 
-// get index and print
+// get index and print it
 console.log(darren.indexOf(1974));
 
-// example using terinary operator
+//example using terinary operator
 var isBorn = darren.indexOf(1975) === -1 ? 'not there' : 'Darren was born in 1974';
-console.log(isBorn);
 */
 
 //-----------------------------------------------------------------------------------
@@ -380,7 +392,7 @@ john.job = 'designer';
 john['married'] = true;
 console.log(john);
 
-// now object method of creating an object
+// 'new object' method of creating an object
 var jane = new Object();
 jane.name = 'Jame';
 jane.birthYear = 1998;
@@ -459,7 +471,11 @@ console.log(john);
 // Loops and Iteration
 
 // for loop
-// a) establish counter, b) test condition, c) increment
+/* 
+for (establish counter; test condition; increment{
+     execute statement;
+}
+*/
 
 /*
 // simple loop that counts to 10
@@ -472,41 +488,41 @@ for (var i = 2; i <= 10; i+=2) {
     console.log(i);    
 }
 
-// loop through array
+// loop through array, pythonic and may not be reliable in javascript
 var darren = ['Darren','Smith','Nerd',1974];
 for (i in darren) {
     console.log(darren[i]);
 }
 
-// loop through array, 2nd method 
+// loop through array, 2nd method, the javascript way
 // (not as concise as above but in the lecture notes)
 // recall, like python lists, arrays start at index 0 
 for (var i = 0; i < darren.length; i++) {
     console.log(darren[i]);
 }
 
-// while loop
+// while loop in javascript is similar to python syntax
 while (i < darren.length) {
     console.log(darren[i]);
     i++;
 }
 
 // continue and break statements
-// what if we wanted only strings from array?
+// what if we wanted to print string array items only?
 for (var i = 0; i < darren.length; i++) {
     if (typeof darren[i] !== 'string') continue;
         console.log(darren[i]);
 }
 
-// what if we want to quit as soon as non-string value is encountered?
+// what if we want to quit as soon as a non-string value is encountered?
 for (var i = 0; i < darren.length; i++) {
     if (typeof darren[i] !== 'string') break;
         console.log(darren[i]);
 }
 
-// loop backwards
+// looping backwards (countdown)
 // start at number that equals length of array
-// test for i being greater or equal to index 0
+// test for i being greater than or equal to index 0
 // decrement i by 1
 
 for (var i = darren.length; i >= 0; i--) {
@@ -555,7 +571,7 @@ retirement(1974);
 // Hoisted variables - javascript loads all variables as the program starts and assigns them as 
 // 'undefined' until they are formally declared
 
-// will show in browser log as undefined as opposed to error
+// console log statement below will show in browser as undefined as opposed to error
 console.log(LastName);
 var lastName = "Smith";
 
@@ -581,21 +597,25 @@ console.log(lastName);
 //global
 /*
 var a = 'hello';
+
+// hoisted because this is called before it is defined
 first();
 
 //parent function
 function first() {
     var b = 'hi';
+    // hoisted because this is called before it is defined
     second();
 
     //child function
     function second() {
         var c = "hey";
+        //function second has access to variables 'a', 'b', and 'c'
         console.log(a + b + c);
     }
 }
 
-// example of execution stack versus chain.  This should error as it would have no access to variables 'b' and 'c'
+// example of execution stack versus chain.  Code below should error as it would have no access to variables 'b' and 'c'
 // this function only has access to 'a', (scoped globally) and 'd', its own variable.
 // it is not in the first ==> second function chain.
 
@@ -631,6 +651,7 @@ function calculateAge(year) {
 
 // 'this' attached to a method call will display the calling object
 
+/*
 var darren = {
     name : 'darren',
     lName : 'smith',
@@ -660,3 +681,4 @@ mike.calculateAge = darren.calculateAge;
 
 // calculate mike's age
 mike.calculateAge();
+*/

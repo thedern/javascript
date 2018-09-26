@@ -10,11 +10,11 @@ GAME RULES:
 */
 
 // declare and initialize variables for game
+var scores, roundScore, activePlayer, gamePlaying;
 
-var scores, roundScore, activePlayer;
-scores = [0, 0];
-roundScore = 0;
-activePlayer = 0;
+// call init function to start game
+// due to hoisting, functions can be called before they are defined.
+init();
 
 /* 
    Produce random number 1 - 6.
@@ -57,7 +57,6 @@ activePlayer = 0;
   document.querySelector('#current-' + activePlayer).innerHTML ='<em>' + dice + '</em>';
 
   This too will be used when we click the roll button
-
 */
 
 /* 
@@ -66,49 +65,147 @@ activePlayer = 0;
   made.
 
   document.querySelector('.dice').style.display = 'none';
-
-*/
+  */
 
 /* ==========================================================================
-   Initialize Screen Upon start
+   Next Player Logic
    ========================================================================== */
 
-// hide dice image
-document.querySelector('.dice').style.display = 'none';
+function nextPlayer() {
+    // next player change, ternary operator which is a shorthand, simple if/else statement
+    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+    // reset roundScore
+    roundScore = 0;
 
-// getElementById is faster than querySelector for IDs
-document.getElementById('score-0').textContent = '0';
-document.getElementById('score-1').textContent = '0';
-document.getElementById('current-0').textContent = '0';
-document.getElementById('current-1').textContent = '0';
+    // reset the scrore panel
+    document.getElementById('current-0').textContent = '0';
+    document.getElementById('current-1').textContent = '0';
+
+    // switch html active class from one player to the other.  This code edits the tags in the index.html
+    document.querySelector('.player-0-panel').classList.toggle('active');
+    document.querySelector('.player-1-panel').classList.toggle('active');
+
+    // reset Dice image
+    document.querySelector('.dice').style.display = 'none';
+
+}
+
+
 
 /* ==========================================================================
-   Events
+   BUTTON EVENT - ROLL
    ========================================================================== */
 
 // select element from doc, event-type, anonymous function which only exists in this button
 document.querySelector('.btn-roll').addEventListener('click', function () {
 
-    // generate random number.  Dice variable only exists in this function
-    var dice = (Math.floor((Math.random() * 6)) + 1);
+    // check if game is playing
+    if(gamePlaying) {
 
-    // display the correct dice icon based on dice variable
+        // generate random number.  Dice variable only exists in this function
+        var dice = (Math.floor((Math.random() * 6)) + 1);
 
-    // get DOM object
-    var diceDom = document.querySelector('.dice');
+        // display the correct dice icon based on dice variable
 
-    // set CSS display value and using type coercion, get correct image file
-    diceDom.style.display = 'block';
-    diceDom.src = './img/dice-' + dice + '.png';
+        // get DOM object
+        var diceDom = document.querySelector('.dice');
+
+        // set CSS display value and using type coercion, get correct image file
+        diceDom.style.display = 'block';
+        diceDom.src = './img/dice-' + dice + '.png';
 
 
-    if (dice !== 1) {
-        // update score
-        roundScore += dice;
-        // display roundScore value in current player score div > id current player
-        document.querySelector('#current-' + activePlayer).textContent = roundScore;
-    }else {
-        // next player 
+        if (dice !== 1) {
+            // update score
+            roundScore += dice;
+            // display roundScore value in current player score div > id current player
+            document.querySelector('#current-' + activePlayer).textContent = roundScore;
+        } else {
+            nextPlayer();
+        }
+
     }
 
 });
+
+
+
+/* ==========================================================================
+   BUTTON EVENT - HOLD  
+   ========================================================================== */
+
+document.querySelector('.btn-hold').addEventListener('click', function() {
+
+    if (gamePlaying) {
+        // add player's current score to global score
+        // the activePlayer (0 or 1) will indicate which index to update with the roundScore
+        scores[activePlayer] += roundScore;
+
+        // update UI global score
+        document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+
+        // check if player won game
+        if (scores[activePlayer] >= 100) {
+            // end game
+            document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
+            document.querySelector('.dice').style.display = 'none';
+            document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+            document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+            gamePlaying = false;
+            
+        } else {
+            // next player
+            nextPlayer();
+        }
+    }
+});
+
+
+
+/* ==========================================================================
+   BUTTON EVENT - NEW  
+   ========================================================================== */
+
+// syntax uses 'init' rather than 'init()' to call the init function.
+// using 'init()' may have undesired results.
+document.querySelector('.btn-new').addEventListener('click', init);
+
+
+/* ==========================================================================
+   Init Function 
+   ========================================================================== */
+
+
+function init() {
+    scores = [0, 0];
+    roundScore = 0;
+    activePlayer = 0;
+
+    // game only plays if this variable is set to 'true'
+    gamePlaying = true;
+
+    // hide dice image
+    document.querySelector('.dice').style.display = 'none';
+
+    // getElementById is faster than querySelector for IDs
+    document.getElementById('score-0').textContent = '0';
+    document.getElementById('score-1').textContent = '0';
+    document.getElementById('current-0').textContent = '0';
+    document.getElementById('current-1').textContent = '0';
+
+    // restore player names
+    document.getElementById('name-0').textContent = 'Player 1';
+    document.getElementById('name-1').textContent = 'Player 2';
+
+    // remove all class assignments from all player panels
+    // remove method will not throw error if attempting to remove something that is NOT there
+    // covering all bases by removing possibilities from all
+    document.querySelector('.player-0-panel').classList.remove('winner');
+    document.querySelector('.player-1-panel').classList.remove('winner');
+    document.querySelector('.player-0-panel').classList.remove('active');
+    document.querySelector('.player-1-panel').classList.remove('active');
+
+    // restore active class
+    document.querySelector('.player-0-panel').classList.add('active');
+    
+}   

@@ -7,65 +7,21 @@ GAME RULES:
 - The player can choose to 'Hold', which means that his ROUND score gets added to his GLBAL score. After that, it's the next player's turn
 - The first player to reach 100 points on GLOBAL score wins the game
 
+Challenge 1
+- player looses entire score if two 6's are rolled in a row. After that event, its the other player's turn
+
+Challenge 2
+- Add an input field where the players may set the winning score. Hint - read value with .value property in js
+
+Challenge 3
+- Add a second dice to the game.  The player still looses score when a 1 is rolled, same as default rules.
 */
 
 // declare and initialize variables for game
-var scores, roundScore, activePlayer, gamePlaying;
+var scores, roundScore, activePlayer, gamePlaying, savedValue, currentValue;
 
-// call init function to start game
-// due to hoisting, functions can be called before they are defined.
+
 init();
-
-/* 
-   Produce random number 1 - 6.
-
-   generate random number with Math object
-   random produces a random floating point number
-   between 0 and 1.
-
-   dice have faces 1 - 6, so need to multiply 
-   number (which is any float between 0 and 1) 
-   by 6 and then round to lowest integer using 
-   floor division.  Then, add 1 due to range of
-   floor(random * 6) is only integers 0 - 5.
-
-   dice = (Math.floor((Math.random() * 6)) + 1);
-
-    this will be used in the roll dice button
-*/
-
-/*
-  place value of dice in webpage using DOM.
-  enter class or ID in querselector the same
-  way you do for css. Queryselector finds first
-  tag matching string entered.
-
-  used the id of #current- + activePlayer (via type conversion)
-  to minimize code and make the statement below more dynamic as
-  it now may be used for activePlayer '0' or activePlayer '1'.
-
-  textContent method value of dice to page in
-  class/id specified.  Only writes Text
-
-  innerHTML method can write html which is more dynamic than
-  plain text.
-
-  document object!
-
-  //document.querySelector('#current-' + activePlayer).textContent = dice;
-
-  document.querySelector('#current-' + activePlayer).innerHTML ='<em>' + dice + '</em>';
-
-  This too will be used when we click the roll button
-*/
-
-/* 
-  querySelector acting on css to hide the dice img in class '.dice'
-  set display: none.  Dice icon should not be displayed until roll is
-  made.
-
-  document.querySelector('.dice').style.display = 'none';
-  */
 
 /* ==========================================================================
    Next Player Logic
@@ -104,7 +60,7 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
 
         // generate random number.  Dice variable only exists in this function
         var dice = (Math.floor((Math.random() * 6)) + 1);
-
+        console.log('dice' + dice);
         // display the correct dice icon based on dice variable
 
         // get DOM object
@@ -116,18 +72,42 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
 
 
         if (dice !== 1) {
-            // update score
-            roundScore += dice;
-            // display roundScore value in current player score div > id current player
-            document.querySelector('#current-' + activePlayer).textContent = roundScore;
+            // evaluate score
+            currentValue = dice;
+            console.log('currentValue ' + currentValue);
+            console.log('savedValue ' + savedValue);
+
+            if (savedValue == 6 && currentValue == 6) {
+                // loose all scores for current player
+                scores[activePlayer] = 0;
+                roundScore = 0;
+                // reset the rolledValue and currentValue for the NEXT player
+                currentValue = 0;
+                savedValue = 0;
+                // pass control to NEXT player
+                nextPlayer();
+            } else {
+                // update roundScore
+                roundScore += dice;
+                // update rolled value with currentValue
+                savedValue = currentValue;
+                // display roundScore value in current player score div > id current player
+                document.querySelector('#current-' + activePlayer).textContent = roundScore;
+            }
+            
         } else {
 
+            // reset the rolledValue and currentValue for the NEXT player
+            currentValue = 0;
+            savedValue = 0;
+            
             /*  without this timeout, if a 1 is rolled, the 
                 the javascript executes the nextplayer function so
                 quickly, the dice-1 image is not displayed */
 
             setTimeout(nextPlayer, 3000);
-        
+
+            
         }
 
     }
@@ -186,6 +166,8 @@ function init() {
     scores = [0, 0];
     roundScore = 0;
     activePlayer = 0;
+    savedValue = 0;
+    currentValue = 0;
 
     // game only plays if this variable is set to 'true'
     gamePlaying = true;

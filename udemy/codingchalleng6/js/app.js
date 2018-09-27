@@ -74,7 +74,7 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
             console.log('currentValue ' + currentValue);
             console.log('savedValue ' + savedValue);
 
-            if (savedValue == 6 && currentValue == 6) {
+            if (savedValue === 6 && currentValue === 6) {
                 // loose all scores for current player
                 scores[activePlayer] = 0;
                 roundScore = 0;

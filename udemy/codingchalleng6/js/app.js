@@ -18,8 +18,7 @@ Challenge 3
 */
 
 // declare and initialize variables for game
-var scores, roundScore, activePlayer, gamePlaying, savedValue, currentValue;
-
+var scores, roundScore, activePlayer, gamePlaying, savedValue, currentValue, playto;
 
 init();
 
@@ -45,8 +44,6 @@ function nextPlayer() {
     document.querySelector('.dice').style.display = 'none';
 
 }
-
-
 
 /* ==========================================================================
    BUTTON EVENT - ROLL
@@ -81,11 +78,17 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
                 // loose all scores for current player
                 scores[activePlayer] = 0;
                 roundScore = 0;
+
+                // update UI
+                document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+                document.querySelector('#current-' + activePlayer).textContent = roundScore;
+
                 // reset the rolledValue and currentValue for the NEXT player
                 currentValue = 0;
                 savedValue = 0;
+
                 // pass control to NEXT player
-                nextPlayer();
+                setTimeout(nextPlayer, 1000);
             } else {
                 // update roundScore
                 roundScore += dice;
@@ -105,16 +108,13 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
                 the javascript executes the nextplayer function so
                 quickly, the dice-1 image is not displayed */
 
-            setTimeout(nextPlayer, 3000);
+            setTimeout(nextPlayer, 1000);
 
-            
         }
 
     }
 
 });
-
-
 
 /* ==========================================================================
    BUTTON EVENT - HOLD  
@@ -131,7 +131,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
         document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
         // check if player won game
-        if (scores[activePlayer] >= 100) {
+        if (scores[activePlayer] >= playto) {
             // end game
             document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
             document.querySelector('.dice').style.display = 'none';
@@ -146,8 +146,6 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
     }
 });
 
-
-
 /* ==========================================================================
    BUTTON EVENT - NEW  
    ========================================================================== */
@@ -156,11 +154,9 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 // using 'init()' may have undesired results.
 document.querySelector('.btn-new').addEventListener('click', init);
 
-
 /* ==========================================================================
    Init Function 
    ========================================================================== */
-
 
 function init() {
     scores = [0, 0];
@@ -195,5 +191,15 @@ function init() {
 
     // restore active class
     document.querySelector('.player-0-panel').classList.add('active');
-    
+
+    // sets delay to allow page to load before prompting for number
+    setTimeout(numPop, 1000);
+
+    /* ==========================================================================
+       Number Pop
+       ========================================================================== */
+    function numPop() {
+        playto = window.prompt('Enter a number to play to:',100);
+        console.log('playto is ' + playto);
+    }
 }   

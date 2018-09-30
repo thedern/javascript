@@ -18,7 +18,7 @@ Challenge 3
 */
 
 // declare and initialize variables for game
-var scores, roundScore, activePlayer, gamePlaying, savedValue, currentValue, playto;
+var scores, roundScore, activePlayer, gamePlaying, savedValue, currentValue;
 
 init();
 
@@ -42,6 +42,9 @@ function nextPlayer() {
 
     // reset Dice image
     document.querySelector('.dice').style.display = 'none';
+
+    // re-enable buttons
+    gamePlaying = true;
 
 }
 
@@ -87,8 +90,9 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
                 currentValue = 0;
                 savedValue = 0;
 
-                // pass control to NEXT player
-                setTimeout(nextPlayer, 1000);
+                // disable buttons, pass control to NEXT player
+                gamePlaying = false;
+                setTimeout(nextPlayer, 2000);
             } else {
                 // update roundScore
                 roundScore += dice;
@@ -106,9 +110,12 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
             
             /*  without this timeout, if a 1 is rolled, the 
                 the javascript executes the nextplayer function so
-                quickly, the dice-1 image is not displayed */
+                quickly, the dice-1 image is not displayed. setTimeout
+                fixes that */
 
-            setTimeout(nextPlayer, 1000);
+            // disable buttons, pass control to NEXT player
+            gamePlaying = false;
+            setTimeout(nextPlayer, 2000);
 
         }
 
@@ -130,8 +137,20 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
         // update UI global score
         document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
+        // input for total score being played to
+        var input = document.querySelector('.final-score').value;
+        var winningScore;
+
+        // validation: Undefined, 0, null, or "" are COERCED to false
+        if (input) {
+            winningScore = input;
+        } else {
+            // Undefined, 0, null, or "" is replaced with default value
+            winningScore = 100;
+        }
+
         // check if player won game
-        if (scores[activePlayer] >= playto) {
+        if (scores[activePlayer] >= winningScore) {
             // end game
             document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
             document.querySelector('.dice').style.display = 'none';
@@ -140,7 +159,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
             gamePlaying = false;
             
         } else {
-            // next player
+            // next player, no delay
             nextPlayer();
         }
     }
@@ -192,14 +211,4 @@ function init() {
     // restore active class
     document.querySelector('.player-0-panel').classList.add('active');
 
-    // sets delay to allow page to load before prompting for number
-    setTimeout(numPop, 1000);
-
-    /* ==========================================================================
-       Number Pop
-       ========================================================================== */
-    function numPop() {
-        playto = window.prompt('Enter a number to play to:',100);
-        console.log('playto is ' + playto);
-    }
-}   
+}

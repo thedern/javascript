@@ -302,6 +302,7 @@ placed at the index values skipped.  Thise indexes are created but with "undefin
 if you were to try to access them directly, see below.
 */
 
+/*
 names[5] = 'Hogwharts';
 console.log(names);
 console.log(names[3]);
@@ -338,3 +339,32 @@ console.log(darren.indexOf(1974));
 // example using terninary operator
 var isBorn = darren.indexOf(1975) === -1 ? 'not there' : 'Darren was born in 1974';
 console.log(isBorn);
+*/
+
+/**
+ * Objects
+ */
+
+// Javascript has 'constructors' which are analogous to classes, which instances are created
+
+/* Inheritance - specific objects can use objects that are more general for properties that are widely shared
+
+Example:  Object constructor --> Person Object --> 'John' Object.
+
+Person is an instance of Object, and John is an instance of Person.  This is the Prototype chain
+
+SUMMARY
+
+1.  Every JS object has a prototype property, which makes inheritance possible in Javascript
+2.  The prototype property of an object is where we put methods and properties that we want other objects to inherit
+3.  The Constructors prototype proptery is NOT the protype of the Constructor itself, its the prototype of ALL instances that are created through it.
+4.  When a certain method or property is called, the search starts in the object itself, and it if it cannont be found,
+    the seach moves to the object's protoype. This continues back up the chain until the method is found.  This is the Prototype chain
+
+*/
+
+// TO CONTINUE THE COURSE, SEE DOWNLOADED CODE '5-advanced-js'.  Notes and examples continue there.
+
+
+
+

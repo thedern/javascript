@@ -2,7 +2,7 @@
 
 // create specific object - 'john', not necessarily reuseable
 
-
+/*
 var john = {
     name: 'John',
     yearOfBirth: 1990,
@@ -16,16 +16,19 @@ var Person = function(name, yearOfBirth, job) {
     this.name = name;
     this.yearOfBirth = yearOfBirth;
     this.job = job;
-}
+};
+*/
+
+/*
 
 // usage - instanciate 'john'
 // 'new' is an operator that creates an empty object which receives the constructor function 'Person'
 
-var john = new Person('John', 1990, 'teacher');
+// var john = new Person('John', 1990, 'teacher');
 
-/* inheritance
-   We are utilizing the Person object and adding to it in order to calculate age.
-   We do not need to edit the Person object, but utilize its prototype */
+// inheritance
+// We are utilizing the Person object and adding to it in order to calculate age.
+// We do not need to edit the Person object, but utilize its prototype 
 
 Person.prototype.calculateAge = function() {
     console.log(2018 - this.yearOfBirth);
@@ -49,11 +52,13 @@ console.log(jane.lastName);
 console.log(mark.lastName);
 console.log(john.lastName);
 
+*/
+
 /* ==========================================================================
    EXAMPLE 1:  Object Function Constructor
    ========================================================================== */
 
-
+/*
 // example
 var jiujitsu = function(name, rank, school, startYear) {
     this.name = name;
@@ -87,12 +92,13 @@ darren.stripes('no stripes');
 
 // log darren
 console.log(darren);
+*/
 
 /* ==========================================================================
    EXAMPLE 2:  Object Function Constructor
    ========================================================================== */
 
-
+/*
 // example parent object - Vehicle
 var Vehicle = function (type, manufacturer, year, doors, color) {
     this.type = type;
@@ -125,12 +131,13 @@ Vehicle.prototype.engineSize = function(engineSize) {
 // update wrangler object with engine size
 wrangler.engineSize('6 cylinder');
 
-
+*/
 /* ==========================================================================
    Object.create:  Object protyping (second way to create and object)
    ========================================================================== */
 // benefit of this method is it allows you to define your own prototype.
 
+/*
 // create a prototype
 var personProto = {
     calculateAge: function() {
@@ -155,13 +162,14 @@ var jane = Object.create(personProto,
         yearOfBirth: { value: 1969 },
         job: { value: 'artist'}
     });
+*/
 
 /* ==========================================================================
    Primitives vs Objects
    ========================================================================== */
-
-/* variables for primitives contain the data stored in the variable
-   variables for objects do not contain the object, but a reference to the object stored in memory */
+/*
+// variables for primitives contain the data stored in the variable
+// variables for objects do not contain the object, but a reference to the object stored in memory 
    
 // each variable gets its own copy of the data
 var a = 23;
@@ -205,7 +213,7 @@ change(age, obj);
 
 console.log(age);
 console.log(obj.city);
-
+*/
 
 /* ==========================================================================
    First Class Functions, Functions as Arguments
@@ -219,18 +227,124 @@ console.log(obj.city);
       This is why functions are called "First Class"
 */
 
-// function as an argument
+// function as an argument (callback functions)
 
-var years = [ 1990, 1965, 1937, 2005, 1998 ];
+var years = [1990, 1965, 1937, 2005, 1998];
 
+// generic calculator function takes array and another function as arguments
 function arrayCalc(arr, fn) {
-    // declare empty array
+    // declare new array
     var arrRes = [];
-    // loop over array
-    for (var i = 0; 1 < arr.length; ++i) {
+    // loops over input array
+    for (var i = 0; i < arr.length; i++) {
+        // takes function result and populates new array
         arrRes.push(fn(arr[i]));
     }
+    // returns the new array
     return arrRes;
 }
 
-function calculateAge
+// functions that take 'elements as input', Callback Functions
+function calculateAge(el) {
+    return 2018 - el;
+}
+
+function isFullAge(el) {
+    return el >= 18;
+}
+
+function maxHeartRate (el) {
+    // formula only valid for people between 18 and 81 years old.
+    if (el >= 18 && el <= 81) {
+        return Math.round(206.9 - (0.67 * el));
+    } else {
+        return -1;
+    }
+}
+
+// function calls to arrayCalc
+
+
+var ages = arrayCalc(years, calculateAge);
+console.log(ages);
+
+// uses ages result from above
+var fullAge = arrayCalc(ages, isFullAge);
+console.log(fullAge);
+
+// uses ages result from first call
+var maxHR = arrayCalc(ages, maxHeartRate);
+console.log(maxHR);
+
+/* ==========================================================================
+   Function that returns a Function
+   ========================================================================== */
+
+// Function that takes an argument 'job', and returns an unnamed function that takes argument 'name'.
+// Functions in js are first class; therefore, returning a function from a function is the same thing
+// returning an object from a function
+
+function interviewQuestion(job) {
+    if (job === 'designer') {
+        return function(name) {
+            console.log(name + ', can you please explain what UX design is?');
+        };
+    } else if (job === 'teacher') {
+        return function(name) {
+            console.log(name +', what subject do you teach?');
+        };
+    } else {
+        return function(name) {
+            console.log(name +', what do you do?');
+        };
+    }
+}
+
+// function call to get question type.  Function is returned and stored in 'teacherQuestion'
+var teacherQuestion = interviewQuestion('teacher');
+
+// function call to generate question
+teacherQuestion('john');
+
+
+// function call to get question type.  Function is returned and stored in 'teacherQuestion'
+var designerQuestion = interviewQuestion('designer');
+
+// function call to generate question
+designerQuestion('dave');
+
+// shorthand w/o saving the function to a variable
+interviewQuestion('teacher')('mark');
+
+/* ==========================================================================
+   Immediately Invoked Function Expressions IIFE
+   ========================================================================== */
+
+// game function
+function game() {
+    var score = Math.random() * 10;
+    console.log(score >= 5);
+}
+
+// function call
+game();
+
+
+// shorthand for above (IIFE). Defined and called in a single step.
+// whole thing in parenthesis is treated as an expression and not a statement
+// when expression, does not need to be declared before executed.
+// IIFE is not reusable.  It is not passed to a variable. Runs once.
+// creates data privacy as variables are NOT accessible outside the IIFE
+
+(function () {
+    var score = Math.random() * 10;
+    console.log(score >= 5);
+})();
+
+// example with an argument.  Passes in 5.
+
+(function (goodluck) {
+    var score = Math.random() * 10;
+    console.log(score >= 5 - goodluck);
+})(5);
+

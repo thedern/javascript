@@ -221,7 +221,11 @@ console.log(obj.city);
 
 /* Function is an instance of the oject type, thus behaves like an object
       We can store functions in a variable
-      We can pass a function as an argument to another function
+
+      We can pass a function as an argument to another function.
+      A callback function, also known as a higher-order function, 
+      is a function that is passed to another function 
+
       we can return a function from a function
 
       This is why functions are called "First Class"
@@ -347,4 +351,94 @@ game();
     var score = Math.random() * 10;
     console.log(score >= 5 - goodluck);
 })(5);
+
+/* ==========================================================================
+   Closures
+   ========================================================================== */
+
+function retire(retirementAge) {
+    var a = 'years left until retirement.';
+    return function(yearOfBirth) {
+        var age = 2018 - yearOfBirth;
+        console.log((retirementAge - age) + a);
+    };
+}
+
+// returns a function to retireUS
+var retireUS = retire(66);
+
+// the pass year of birth, 1990 into the function contained within variable 'retireUS'
+retireUS(1990);
+
+
+// shorthand for above calls the first and then the second function without first passing function to variable
+// closure, outter function and then inner function.  Even if a function returns and its excution context is gone,
+// its variables are still available in memory to the child functions in the scope chain
+retire(66)(1990);
+retire(77)(1974);
+
+
+// interview question rewritten as a closure.  Shortens the amount of code by around 2/3. See line 287
+function interviews(job) {
+    // anonymous function has access to 'job' due to lexical scope.
+    return function(name){
+        if (job === 'designer') {
+            console.log( name + ' what do you design?');
+        } else if (job === 'teacher') {
+            console.log( name + ' what do you teach?');
+        } else {
+            console.log( 'hello ' + name);
+        }
+    };
+}
+
+// call function interviews
+interviews('teacher')('darren');
+
+/* ==========================================================================
+   Bind Call and Apply
+   ========================================================================== */
+
+
+var bill = {
+    name: 'dave',
+    age: 26,
+    job: 'teacher',
+    presentation: function(style, timeofDay) {
+        if(style === 'formal') {
+            console.log('Good ' + timeofDay + ' Ladies and Gentlemen, I am ' + this.name + ' and a ' + this.job);
+        } else if (style === 'freindly') {
+            console.log('sup peeps ' + timeofDay + ' yo!');
+        }
+    }
+};
+
+bill.presentation('formal', 'morning');
+
+
+var emily = {
+    name: 'emily',
+    age: 35,
+    job: 'designer'
+};
+
+// use 'call' to borrow the presentation function from bill and give to emily
+// this is method borrowing
+bill.presentation.call(emily, 'formal', 'morning');
+
+// apply is similar to 'call' but uses an array
+// bill.presentation.apply(emily,['friendly', 'morning'])
+
+// bind method returns function
+var billFriendly = bill.presentation.bind(bill, 'formal');
+
+billFriendly('morning');
+
+
+
+
+
+
+
+
 

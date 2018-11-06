@@ -31,7 +31,7 @@ function addItem(e) {
 
 
     // create a new li when submit button is clicked
-    var li = document.createElement('li')
+    var li = document.createElement('li');
     // add bootstrap class to li
     li.className = 'list-group-item';
     // add captured text held in 'newItem' variable to li
